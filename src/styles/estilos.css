@@ -1,0 +1,297 @@
+/* ============================================================
+   Veterinaria San Marcos — estilos propios (versión 2, React)
+   La paleta viene de la versión 1 (css/estilos.css).
+   Bootstrap se carga antes en main.jsx: lo que está aquí lo
+   complementa o lo sobreescribe. La grilla y los breakpoints
+   los maneja Bootstrap (Container, Row, Col).
+   ============================================================ */
+
+:root {
+  --verde-clinica: #3b6b54;
+  --verde-oscuro: #274a3a;
+  --verde-claro: #e7efe8;
+  --arena: #f6f3ec;
+  --texto: #24302b;
+  --texto-suave: #55625b;
+  --acento: #b8834b;
+  --acento-oscuro: #9a6a37;
+  --borde: #d8d2c4;
+
+  --fuente-titulo: Georgia, 'Iowan Old Style', serif;
+  --fuente-base: 'Segoe UI', system-ui, sans-serif;
+
+  /* Variables de Bootstrap que ajustamos a la marca */
+  --bs-body-font-family: var(--fuente-base);
+  --bs-body-color: var(--texto);
+  --bs-body-bg: var(--arena);
+  --bs-link-color-rgb: 59, 107, 84;
+  --bs-link-hover-color-rgb: 39, 74, 58;
+  --bs-border-color: var(--borde);
+}
+
+body {
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3,
+.seccion__titulo {
+  font-family: var(--fuente-titulo);
+  color: var(--verde-oscuro);
+  line-height: 1.25;
+}
+
+.seccion__titulo {
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.2rem);
+  margin-bottom: 0.5rem;
+}
+
+.seccion__intro {
+  color: var(--texto-suave);
+  max-width: 60ch;
+  margin-bottom: 1.75rem;
+}
+
+/* ---------- Botones de la marca (variant="vsm" en <Boton />) ---------- */
+
+.btn-vsm {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--verde-clinica);
+  --bs-btn-border-color: var(--verde-clinica);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--verde-oscuro);
+  --bs-btn-hover-border-color: var(--verde-oscuro);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--verde-oscuro);
+  --bs-btn-active-border-color: var(--verde-oscuro);
+  --bs-btn-focus-shadow-rgb: 59, 107, 84;
+}
+
+.btn-outline-vsm {
+  --bs-btn-color: var(--verde-clinica);
+  --bs-btn-border-color: var(--verde-clinica);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--verde-clinica);
+  --bs-btn-hover-border-color: var(--verde-clinica);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--verde-oscuro);
+  --bs-btn-active-border-color: var(--verde-oscuro);
+  --bs-btn-focus-shadow-rgb: 59, 107, 84;
+}
+
+.btn-acento {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--acento);
+  --bs-btn-border-color: var(--acento);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--acento-oscuro);
+  --bs-btn-hover-border-color: var(--acento-oscuro);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--acento-oscuro);
+  --bs-btn-focus-shadow-rgb: 184, 131, 75;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--verde-clinica);
+  box-shadow: 0 0 0 0.2rem rgba(59, 107, 84, 0.2);
+}
+
+.form-check-input:checked {
+  background-color: var(--verde-clinica);
+  border-color: var(--verde-clinica);
+}
+
+/* ---------- Barra de navegación ---------- */
+
+.barra-navegacion {
+  background-color: var(--verde-oscuro);
+}
+
+.barra-navegacion__logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+}
+
+.barra-navegacion__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+}
+
+.barra-navegacion .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.barra-navegacion .nav-link:hover,
+.barra-navegacion .nav-link.active {
+  color: #fff;
+}
+
+.barra-navegacion .nav-link.active:not(.btn) {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.barra-navegacion .nav-link.btn {
+  color: #fff;
+  background-color: var(--acento);
+  border-radius: 0.375rem;
+}
+
+.barra-navegacion .nav-link.btn:hover,
+.barra-navegacion .nav-link.btn.active {
+  background-color: var(--acento-oscuro);
+}
+
+@media (max-width: 991.98px) {
+  .barra-navegacion .nav-link.btn {
+    display: inline-block;
+    margin: 0.5rem 0;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background: linear-gradient(135deg, var(--verde-claro), var(--arena));
+  padding: 3rem 0;
+}
+
+.hero__titulo {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+}
+
+.hero__texto {
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+  max-width: 52ch;
+  margin-bottom: 1.5rem;
+}
+
+.hero__imagen {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(39, 74, 58, 0.18);
+}
+
+/* ---------- Tarjetas ---------- */
+
+.tarjeta-servicio,
+.tarjeta-formulario {
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(39, 74, 58, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tarjeta-servicio:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(39, 74, 58, 0.12);
+}
+
+.tarjeta-servicio__imagen {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.tarjeta-servicio__categoria {
+  color: var(--acento-oscuro);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tarjeta-servicio__nombre {
+  font-size: 1.2rem;
+}
+
+.etiqueta-especie {
+  background-color: var(--verde-claro);
+  color: var(--verde-oscuro);
+  font-weight: 500;
+}
+
+.precio {
+  font-weight: 700;
+  color: var(--verde-oscuro);
+}
+
+.tarjeta-formulario__logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ---------- Detalle ---------- */
+
+.detalle__imagen {
+  width: 100%;
+  border-radius: 14px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.detalle__datos {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  margin: 1.25rem 0;
+}
+
+.detalle__datos dt {
+  color: var(--texto-suave);
+  font-weight: 500;
+}
+
+.detalle__datos dd {
+  margin: 0;
+}
+
+.articulo-blog h2 {
+  font-size: 1.4rem;
+  margin-top: 1.75rem;
+}
+
+/* ---------- Equipo ---------- */
+
+.integrante__foto {
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 0.75rem;
+  display: block;
+}
+
+.integrante__cargo {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+/* ---------- Pie de página ---------- */
+
+.pie {
+  background-color: var(--verde-oscuro);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 2rem 0 1.5rem;
+}
+
+.pie a {
+  color: #fff;
+}
+
+.pie__copy {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}

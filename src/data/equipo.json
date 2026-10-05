@@ -1,0 +1,7 @@
+[
+  { "id": 1, "nombre": "María Soto", "cargo": "Médica veterinaria, directora clínica", "foto": "/img/equipo-vet-1.jpg" },
+  { "id": 2, "nombre": "Rodrigo Pérez", "cargo": "Médico veterinario, cirugía", "foto": "/img/equipo-vet-2.jpg" },
+  { "id": 3, "nombre": "Camila Reyes", "cargo": "Médica veterinaria, medicina interna", "foto": "/img/equipo-vet-3.jpg" },
+  { "id": 4, "nombre": "Felipe Muñoz", "cargo": "Técnico veterinario", "foto": "/img/equipo-tecnico.jpg" },
+  { "id": 5, "nombre": "Daniela Rojas", "cargo": "Recepcionista", "foto": "/img/equipo-recepcion.png" }
+]
