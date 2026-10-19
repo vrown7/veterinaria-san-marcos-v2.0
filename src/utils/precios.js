@@ -18,3 +18,21 @@ export function calcularPrecioConRecargo(precioBase, fueraDeHorario) {
 export function aplicaRecargoUrgencia(servicio) {
   return servicio?.codigo === 'SV002'
 }
+
+// Aplica un descuento en porcentaje (ofertas). 10% de 10.000 -> 9.000
+export function aplicarDescuento(precio, porcentaje) {
+  if (porcentaje < 0 || porcentaje > 100) {
+    throw new Error('El descuento debe estar entre 0 y 100')
+  }
+  return Math.round(precio * (1 - porcentaje / 100))
+}
+
+// Precio que paga el cliente por un servicio: con su descuento si está en oferta.
+export function precioFinal(servicio) {
+  return aplicarDescuento(servicio.precio, servicio.descuento ?? 0)
+}
+
+// Total de una solicitud: suma precio unitario por cantidad de cada ítem.
+export function calcularTotal(items) {
+  return items.reduce((total, item) => total + item.precioUnitario * item.cantidad, 0)
+}
