@@ -1,5 +1,5 @@
 // Página: Inicio. Usa el template público y le pone datos reales.
-import { Container } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import PlantillaPublica from '../components/templates/PlantillaPublica'
 import Hero from '../components/organisms/Hero'
@@ -10,8 +10,9 @@ import { useServicios } from '../context/ServiciosContext'
 const CODIGOS_DESTACADOS = ['SV001', 'VA001', 'DE002']
 
 function Inicio() {
-  const { servicios } = useServicios()
+  const { servicios, categorias } = useServicios()
   const destacados = servicios.filter((s) => CODIGOS_DESTACADOS.includes(s.codigo))
+  const ofertas = servicios.filter((s) => (s.descuento ?? 0) > 0).slice(0, 3)
 
   return (
     <PlantillaPublica>
@@ -34,6 +35,41 @@ function Inicio() {
           </Link>
         </div>
       </Container>
+
+      <section className="franja-categorias py-5">
+        <Container>
+          <h2 className="seccion__titulo">Áreas de atención</h2>
+          <Row className="g-3">
+            {categorias.map((categoria) => (
+              <Col key={categoria.id} xs={6} md={4} lg={2}>
+                <Card className="h-100 text-center tarjeta-categoria-mini">
+                  <Card.Body className="d-flex align-items-center justify-content-center">
+                    <Link
+                      to={`/servicios?categoria=${encodeURIComponent(categoria.nombre)}`}
+                      className="stretched-link fw-semibold text-decoration-none"
+                    >
+                      {categoria.nombre}
+                    </Link>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {ofertas.length > 0 && (
+        <Container as="section" className="py-5">
+          <h2 className="seccion__titulo">Ofertas del mes</h2>
+          <p className="seccion__intro">Descuentos por tiempo limitado en servicios seleccionados.</p>
+          <ListaServicios servicios={ofertas} />
+          <div className="text-center mt-4">
+            <Link to="/ofertas" className="btn btn-outline-vsm">
+              Ver todas las ofertas
+            </Link>
+          </div>
+        </Container>
+      )}
     </PlantillaPublica>
   )
 }

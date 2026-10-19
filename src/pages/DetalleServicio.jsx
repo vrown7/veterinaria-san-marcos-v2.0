@@ -1,16 +1,27 @@
 // Página: detalle de un servicio (RF02). El id llega por la URL: /servicios/:id
 import { useState } from 'react'
 import { Col, Container, Form, Row } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import PlantillaPublica from '../components/templates/PlantillaPublica'
 import EtiquetaEspecie from '../components/atoms/EtiquetaEspecie'
 import Precio from '../components/atoms/Precio'
+import Boton from '../components/atoms/Boton'
+import EtiquetaOferta from '../components/atoms/EtiquetaOferta'
 import { useServicios } from '../context/ServiciosContext'
-import { aplicaRecargoUrgencia, calcularPrecioConRecargo, RECARGO_URGENCIA, formatearPrecio } from '../utils/precios'
+import { useSolicitud } from '../context/SolicitudContext'
+import {
+  aplicaRecargoUrgencia,
+  calcularPrecioConRecargo,
+  formatearPrecio,
+  precioFinal,
+  RECARGO_URGENCIA,
+} from '../utils/precios'
 
 function DetalleServicio() {
   const { id } = useParams()
   const { servicios } = useServicios()
+  const { agregar } = useSolicitud()
+  const navegar = useNavigate()
   const [fueraDeHorario, setFueraDeHorario] = useState(false)
   const servicio = servicios.find((s) => s.id === Number(id))
 
@@ -29,7 +40,13 @@ function DetalleServicio() {
   }
 
   const tieneRecargo = aplicaRecargoUrgencia(servicio)
-  const precioFinal = calcularPrecioConRecargo(servicio.precio, tieneRecargo && fueraDeHorario)
+  const enOferta = (servicio.descuento ?? 0) > 0
+  const precioAPagar = calcularPrecioConRecargo(precioFinal(servicio), tieneRecargo && fueraDeHorario)
+
+  function agregarYVer() {
+    agregar(servicio, precioAPagar, tieneRecargo && fueraDeHorario)
+    navegar('/solicitud')
+  }
 
   return (
     <PlantillaPublica>
@@ -71,11 +88,22 @@ function DetalleServicio() {
               />
             )}
 
-            <p className="mb-0 text-muted small">Precio</p>
-            <Precio valor={precioFinal} className="fs-2 d-block mb-3" />
-            <Link to="/contacto" className="btn btn-vsm btn-lg">
-              Consultar disponibilidad
-            </Link>
+            <p className="mb-0 text-muted small">
+              Precio {enOferta && <EtiquetaOferta descuento={servicio.descuento} />}
+            </p>
+            <div className="d-flex align-items-baseline gap-2 mb-1">
+              <Precio valor={precioAPagar} className="fs-2" />
+              {enOferta && <Precio valor={servicio.precio} tachado />}
+            </div>
+            <p className={`small mb-3 ${servicio.stock <= servicio.stockCritico ? 'text-danger' : 'text-muted'}`}>
+              {servicio.stock === 0 ? 'Sin cupos esta semana' : `Quedan ${servicio.stock} cupos esta semana`}
+            </p>
+            <Boton
+              texto="Agregar a mi solicitud de cita"
+              size="lg"
+              disabled={servicio.stock === 0}
+              onClick={agregarYVer}
+            />
           </Col>
         </Row>
       </Container>
