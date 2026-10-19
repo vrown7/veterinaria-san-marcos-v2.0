@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "numero": "SOL-00001",
+    "fechaCreacion": "2026-10-14T10:20:00.000Z",
+    "estado": "Confirmada",
+    "nombre": "Ana",
+    "apellidos": "Pérez Soto",
+    "correo": "ana@gmail.com",
+    "telefono": "912345678",
+    "mascota": "Toby",
+    "especie": "Perro",
+    "fecha": "2026-10-20",
+    "hora": "10:00",
+    "comentario": "Viene por su vacuna anual.",
+    "items": [
+      { "clave": "4", "servicioId": 4, "codigo": "VA002", "nombre": "Vacuna séxtuple canina", "precioUnitario": 15300, "cantidad": 1 }
+    ],
+    "total": 15300,
+    "propuesta": null
+  },
+  {
+    "id": 2,
+    "numero": "SOL-00002",
+    "fechaCreacion": "2026-10-16T15:05:00.000Z",
+    "estado": "Pendiente",
+    "nombre": "Ana",
+    "apellidos": "Pérez Soto",
+    "correo": "ana@gmail.com",
+    "telefono": "912345678",
+    "mascota": "Michi",
+    "especie": "Gato",
+    "fecha": "2026-10-23",
+    "hora": "16:30",
+    "comentario": "",
+    "items": [
+      { "clave": "1", "servicioId": 1, "codigo": "SV001", "nombre": "Consulta general", "precioUnitario": 15000, "cantidad": 1 },
+      { "clave": "9", "servicioId": 9, "codigo": "OT001", "nombre": "Corte de uñas", "precioUnitario": 5000, "cantidad": 1 }
+    ],
+    "total": 20000,
+    "propuesta": null
+  }
+]
