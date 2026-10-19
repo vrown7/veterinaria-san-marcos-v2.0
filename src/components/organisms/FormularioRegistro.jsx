@@ -1,11 +1,14 @@
 // Organismo: formulario de registro de usuario (RF04 de la ERS), con selects
 // dependientes de región y comuna y validación hecha en React.
+// Al registrarse se crea un "Dueño de mascota" y queda con la sesión iniciada.
 import { useState } from 'react'
 import { Alert, Col, Form, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import Boton from '../atoms/Boton'
 import CampoFormulario from '../molecules/CampoFormulario'
 import CampoSelector from '../molecules/CampoSelector'
 import { useFormulario } from '../../hooks/useFormulario'
+import { useAuth } from '../../context/AuthContext'
 import { validarRegistro } from '../../utils/validaciones'
 import regiones from '../../data/regiones.json'
 
@@ -27,7 +30,9 @@ function FormularioRegistro() {
     valoresIniciales,
     validarRegistro,
   )
-  const [exito, setExito] = useState('')
+  const { registrar } = useAuth()
+  const navegar = useNavigate()
+  const [errorRegistro, setErrorRegistro] = useState('')
   const comunas = regiones[valores.region] ?? []
 
   // Al cambiar la región, la comuna elegida deja de ser válida: se limpia.
@@ -37,10 +42,17 @@ function FormularioRegistro() {
 
   function manejarEnvio(evento) {
     evento.preventDefault()
-    setExito('')
+    setErrorRegistro('')
     if (!validarTodo()) return
-    setExito(`¡Cuenta creada correctamente, ${valores.nombre.trim()}! Ya puedes iniciar sesión.`)
-    reiniciar()
+    try {
+      const { claveConfirmar: _confirmacion, ...datos } = valores
+      registrar({ ...datos, run: datos.run.trim().toUpperCase(), nombre: datos.nombre.trim(), apellidos: datos.apellidos.trim() })
+      reiniciar()
+      navegar('/', { replace: true })
+    } catch (error) {
+      // Por ejemplo: el correo ya está registrado.
+      setErrorRegistro(error.message)
+    }
   }
 
   // Props comunes a todos los campos, para no repetirlas.
@@ -103,9 +115,9 @@ function FormularioRegistro() {
       <div className="d-grid">
         <Boton tipo="submit" texto="Crear cuenta" size="lg" />
       </div>
-      {exito && (
-        <Alert variant="success" className="mt-3 mb-0" role="status">
-          {exito}
+      {errorRegistro && (
+        <Alert variant="danger" className="mt-3 mb-0" role="alert">
+          {errorRegistro}
         </Alert>
       )}
     </Form>
