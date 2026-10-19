@@ -13,8 +13,10 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
-      include: ['src/**/*.{js,jsx}'],
-      exclude: ['src/main.jsx', 'src/setupTests.js', 'src/**/*.test.{js,jsx}'],
+      // Igual que la guía 15: se mide la lógica y los componentes. Las páginas (src/pages)
+      // solo arman componentes ya probados, por eso quedan fuera del reporte.
+      include: ['src/utils/**', 'src/components/**', 'src/services/**', 'src/hooks/**', 'src/routes/**'],
+      exclude: ['src/**/*.test.{js,jsx}'],
     },
   },
 })
