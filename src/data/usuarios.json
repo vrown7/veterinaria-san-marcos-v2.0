@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "run": "123456785",
+    "nombre": "Daniela",
+    "apellidos": "Rojas Fuentes",
+    "correo": "admin@duoc.cl",
+    "clave": "admin123",
+    "tipo": "Administrador",
+    "region": "Región del Libertador Gral. Bernardo O'Higgins",
+    "comuna": "Rancagua",
+    "direccion": "Av. Libertador Bernardo O'Higgins 1234"
+  },
+  {
+    "id": 2,
+    "run": "111111111",
+    "nombre": "Paula",
+    "apellidos": "Contreras Vidal",
+    "correo": "recepcion@duoc.cl",
+    "clave": "recep123",
+    "tipo": "Recepcionista",
+    "region": "Región del Libertador Gral. Bernardo O'Higgins",
+    "comuna": "Machalí",
+    "direccion": "Los Aromos 455"
+  },
+  {
+    "id": 3,
+    "run": "222222222",
+    "nombre": "Ana",
+    "apellidos": "Pérez Soto",
+    "correo": "ana@gmail.com",
+    "clave": "ana123",
+    "tipo": "Dueño de mascota",
+    "region": "Región del Libertador Gral. Bernardo O'Higgins",
+    "comuna": "Rancagua",
+    "direccion": "Calle Estado 210"
+  }
+]
