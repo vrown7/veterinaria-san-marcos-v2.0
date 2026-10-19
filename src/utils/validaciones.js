@@ -1,3 +1,5 @@
+import { HORARIOS, esDomingo, fechaMinimaCita } from './agenda'
+
 // Reglas de validación de formularios (migradas desde js/cuentas.js de la versión 1).
 // Cada función "validarX" recibe los valores del formulario y devuelve un objeto con
 // un mensaje por cada campo con error. Si el objeto viene vacío, el formulario es válido.
@@ -114,5 +116,82 @@ export function validarContacto({ nombre, correo, comentario }) {
       : comentario.length > 500
         ? 'El comentario no puede superar los 500 caracteres.'
         : '',
+  })
+}
+
+// Solicitud de cita (checkout). "hoy" se puede pasar desde la prueba para que no
+// dependa del día en que se ejecuta.
+export function validarSolicitudCita(datos, hoy = new Date()) {
+  const { nombre, apellidos, correo, telefono, mascota, especie, fecha, hora } = datos
+  const minima = fechaMinimaCita(hoy)
+  return soloConError({
+    nombre: nombre.trim() ? '' : 'El nombre es obligatorio.',
+    apellidos: apellidos.trim() ? '' : 'Los apellidos son obligatorios.',
+    correo: errorCorreo(correo),
+    telefono: /^9\d{8}$/.test(telefono.trim()) ? '' : 'Ingresa un celular de 9 dígitos que empiece con 9.',
+    mascota: mascota.trim() ? '' : 'Indica el nombre de tu mascota.',
+    especie: especie ? '' : 'Selecciona la especie.',
+    fecha: !fecha
+      ? 'Selecciona una fecha.'
+      : fecha < minima
+        ? 'La cita debe ser desde mañana en adelante.'
+        : esDomingo(fecha)
+          ? 'Los domingos la clínica no atiende.'
+          : '',
+    hora: HORARIOS.includes(hora) ? '' : 'Selecciona un horario.',
+  })
+}
+
+// Servicio del catálogo (panel de administración). "codigosUsados" evita códigos repetidos.
+export function validarServicio(datos, codigosUsados = []) {
+  const numero = (valor) => Number(valor)
+  const esEnteroNoNegativo = (valor) => valor !== '' && Number.isInteger(numero(valor)) && numero(valor) >= 0
+  return soloConError({
+    codigo: !/^[A-Z]{2}\d{3}$/.test(datos.codigo.trim().toUpperCase())
+      ? 'El código debe tener 2 letras y 3 números (ej. SV006).'
+      : codigosUsados.includes(datos.codigo.trim().toUpperCase())
+        ? 'Ya existe un servicio con ese código.'
+        : '',
+    nombre: !datos.nombre.trim()
+      ? 'El nombre es obligatorio.'
+      : datos.nombre.trim().length > 100
+        ? 'El nombre no puede superar los 100 caracteres.'
+        : '',
+    categoria: datos.categoria ? '' : 'Selecciona una categoría.',
+    especie: datos.especie.trim() ? '' : 'Indica la especie (ej. Perro / Gato).',
+    duracion: datos.duracion.trim() ? '' : 'Indica la duración (ej. 30 min).',
+    precio: esEnteroNoNegativo(datos.precio) && numero(datos.precio) > 0 ? '' : 'El precio debe ser un número entero mayor a 0.',
+    descuento:
+      esEnteroNoNegativo(datos.descuento) && numero(datos.descuento) <= 90 ? '' : 'El descuento debe ser un número entre 0 y 90.',
+    stock: esEnteroNoNegativo(datos.stock) ? '' : 'Los cupos deben ser un número entero mayor o igual a 0.',
+    stockCritico: esEnteroNoNegativo(datos.stockCritico) ? '' : 'El mínimo crítico debe ser un número entero mayor o igual a 0.',
+    descripcion: datos.descripcion.trim().length > 500 ? 'La descripción no puede superar los 500 caracteres.' : '',
+  })
+}
+
+// Usuario (panel de administración). En edición la contraseña es opcional.
+export function validarUsuario(datos, { correosUsados = [], esNuevo = true } = {}) {
+  const base = validarRegistro({ ...datos, claveConfirmar: datos.clave })
+  // En edición, si la contraseña viene vacía se mantiene la anterior.
+  if (!esNuevo && !datos.clave) delete base.clave
+  delete base.claveConfirmar
+  delete base.fechaNacimiento
+  if (!base.correo && correosUsados.includes(datos.correo.trim().toLowerCase())) {
+    base.correo = 'Ya existe un usuario con ese correo.'
+  }
+  if (!['Administrador', 'Recepcionista', 'Dueño de mascota'].includes(datos.tipo)) {
+    base.tipo = 'Selecciona el tipo de usuario.'
+  }
+  return base
+}
+
+export function validarCategoria({ nombre, descripcion }, nombresUsados = []) {
+  return soloConError({
+    nombre: !nombre.trim()
+      ? 'El nombre es obligatorio.'
+      : nombresUsados.includes(nombre.trim().toLowerCase())
+        ? 'Ya existe una categoría con ese nombre.'
+        : '',
+    descripcion: descripcion.trim().length > 200 ? 'La descripción no puede superar los 200 caracteres.' : '',
   })
 }
