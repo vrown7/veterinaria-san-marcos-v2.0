@@ -1,0 +1,8 @@
+[
+  { "id": 1, "nombre": "Consultas", "descripcion": "Consultas generales, de urgencia y controles." },
+  { "id": 2, "nombre": "Vacunación", "descripcion": "Vacunas obligatorias y refuerzos anuales para perros y gatos." },
+  { "id": 3, "nombre": "Cirugía", "descripcion": "Esterilizaciones y cirugías menores con anestesia incluida." },
+  { "id": 4, "nombre": "Desparasitación", "descripcion": "Tratamientos antiparasitarios internos y externos." },
+  { "id": 5, "nombre": "Exámenes", "descripcion": "Exámenes de laboratorio e imagenología de apoyo diagnóstico." },
+  { "id": 6, "nombre": "Otros", "descripcion": "Higiene, microchip y otros cuidados." }
+]

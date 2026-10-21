@@ -1,36 +1,79 @@
-// ServiciosContext: el puente entre el service (los datos) y las pantallas (React).
-// Guarda la lista en el estado de React y llama al service cuando alguien crea, edita o
-// elimina. Así el catálogo y (más adelante) el panel de administración ven siempre lo mismo.
+// ServiciosContext: el puente entre los services (los datos) y las pantallas (React).
+// Guarda en el estado de React los servicios y las categorías, y llama al service cuando
+// alguien crea, edita o elimina. Así el catálogo y el panel de administración ven siempre lo mismo.
 import { createContext, useContext, useState } from 'react'
 import * as servicioService from '../services/servicioService'
+import * as categoriaService from '../services/categoriaService'
 
 const ServiciosContext = createContext(null)
 
 export function ServiciosProvider({ children }) {
   // La función flecha hace que la lista se lea del service solo la primera vez.
   const [servicios, setServicios] = useState(() => servicioService.listarServicios())
+  const [categorias, setCategorias] = useState(() => categoriaService.listarCategorias())
 
-  function crear(datos) {
-    servicioService.crearServicio(datos)
+  function recargar() {
     setServicios(servicioService.listarServicios())
+    setCategorias(categoriaService.listarCategorias())
+  }
+
+  // ---- Servicios ----
+  function crear(datos) {
+    const nuevo = servicioService.crearServicio(datos)
+    recargar()
+    return nuevo
   }
 
   function actualizar(id, cambios) {
     servicioService.actualizarServicio(id, cambios)
-    setServicios(servicioService.listarServicios())
+    recargar()
   }
 
   function eliminar(id) {
     servicioService.eliminarServicio(id)
-    setServicios(servicioService.listarServicios())
+    recargar()
   }
 
-  function recargar() {
-    setServicios(servicioService.listarServicios())
+  // ---- Categorías ----
+  function crearCategoria(datos) {
+    categoriaService.crearCategoria(datos)
+    recargar()
+  }
+
+  // Si cambia el nombre, los servicios de esa categoría se mueven al nombre nuevo.
+  function actualizarCategoria(id, cambios) {
+    const anterior = categoriaService.obtenerCategoria(id)
+    categoriaService.actualizarCategoria(id, cambios)
+    if (anterior && cambios.nombre && cambios.nombre !== anterior.nombre) {
+      servicioService.renombrarCategoria(anterior.nombre, cambios.nombre)
+    }
+    recargar()
+  }
+
+  // Una categoría con servicios no se puede eliminar (quedarían servicios sin categoría).
+  function eliminarCategoria(id) {
+    const categoria = categoriaService.obtenerCategoria(id)
+    if (servicios.some((s) => s.categoria === categoria?.nombre)) {
+      throw new Error('No se puede eliminar: la categoría tiene servicios asociados.')
+    }
+    categoriaService.eliminarCategoria(id)
+    recargar()
   }
 
   return (
-    <ServiciosContext.Provider value={{ servicios, crear, actualizar, eliminar, recargar }}>
+    <ServiciosContext.Provider
+      value={{
+        servicios,
+        categorias,
+        crear,
+        actualizar,
+        eliminar,
+        recargar,
+        crearCategoria,
+        actualizarCategoria,
+        eliminarCategoria,
+      }}
+    >
       {children}
     </ServiciosContext.Provider>
   )
