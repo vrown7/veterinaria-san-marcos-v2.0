@@ -3,23 +3,13 @@
 // Basado en el productoService de la guía 13.
 
 import serviciosIniciales from '../data/servicios.json'
+import { guardarLista, leerLista, siguienteId } from './almacenamiento'
 
 // Nombre del "cajón" de localStorage donde se guarda la lista.
-const CLAVE = 'servicios'
+const CLAVE = 'vsm_servicios'
 
-// Devuelve la lista actual. La primera vez copia los datos de partida a localStorage.
-function leer() {
-  const guardado = localStorage.getItem(CLAVE)
-  if (guardado === null) {
-    localStorage.setItem(CLAVE, JSON.stringify(serviciosIniciales))
-    return [...serviciosIniciales]
-  }
-  return JSON.parse(guardado)
-}
-
-function guardar(lista) {
-  localStorage.setItem(CLAVE, JSON.stringify(lista))
-}
+const leer = () => leerLista(CLAVE, serviciosIniciales)
+const guardar = (lista) => guardarLista(CLAVE, lista)
 
 // READ: todos los servicios
 export function listarServicios() {
@@ -34,8 +24,7 @@ export function obtenerServicio(id) {
 // CREATE: agrega un servicio nuevo con el siguiente id disponible
 export function crearServicio(datos) {
   const lista = leer()
-  const nuevoId = Math.max(0, ...lista.map((s) => s.id)) + 1
-  const nuevo = { ...datos, id: nuevoId }
+  const nuevo = { ...datos, id: siguienteId(lista) }
   guardar([...lista, nuevo])
   return nuevo
 }
@@ -55,4 +44,37 @@ export function eliminarServicio(id) {
 // Lista de categorías sin repetir, en el orden en que aparecen.
 export function listarCategorias() {
   return [...new Set(leer().map((s) => s.categoria))]
+}
+
+// Servicios con cupos en el mínimo crítico o por debajo (vista "Ítems críticos" del admin).
+export function listarCriticos() {
+  return leer().filter((s) => s.stock <= s.stockCritico)
+}
+
+// Servicios en oferta (con descuento mayor a 0).
+export function listarOfertas() {
+  return leer().filter((s) => (s.descuento ?? 0) > 0)
+}
+
+// Cuando se renombra una categoría, sus servicios pasan a la categoría nueva.
+export function renombrarCategoria(nombreAnterior, nombreNuevo) {
+  guardar(leer().map((s) => (s.categoria === nombreAnterior ? { ...s, categoria: nombreNuevo } : s)))
+}
+
+// Descuenta cupos al agendar. Si algún servicio no tiene cupos suficientes, no descuenta
+// nada y lanza un error con el nombre del servicio.
+export function descontarCupos(items) {
+  const lista = leer()
+  for (const item of items) {
+    const servicio = lista.find((s) => s.id === item.servicioId)
+    if (!servicio || servicio.stock < item.cantidad) {
+      throw new Error(`No quedan cupos suficientes para "${item.nombre}".`)
+    }
+  }
+  guardar(
+    lista.map((s) => {
+      const pedido = items.filter((i) => i.servicioId === s.id).reduce((suma, i) => suma + i.cantidad, 0)
+      return pedido ? { ...s, stock: s.stock - pedido } : s
+    }),
+  )
 }

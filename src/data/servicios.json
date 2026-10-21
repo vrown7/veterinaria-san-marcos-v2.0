@@ -9,7 +9,10 @@
     "precio": 15000,
     "observaciones": "",
     "descripcion": "Revisión general del estado de salud de tu mascota, con orientación sobre cuidados y controles preventivos.",
-    "imagen": "/img/consulta-general.jpg"
+    "imagen": "/img/consulta-general.jpg",
+    "stock": 20,
+    "stockCritico": 5,
+    "descuento": 0
   },
   {
     "id": 2,
@@ -21,7 +24,10 @@
     "precio": 25000,
     "observaciones": "Fuera de horario +$10.000",
     "descripcion": "Atención prioritaria para casos que no pueden esperar una hora agendada. Fuera del horario normal se aplica un recargo.",
-    "imagen": "/img/consulta-general.jpg"
+    "imagen": "/img/consulta-general.jpg",
+    "stock": 4,
+    "stockCritico": 3,
+    "descuento": 0
   },
   {
     "id": 3,
@@ -33,7 +39,10 @@
     "precio": 12000,
     "observaciones": "Obligatoria por ley",
     "descripcion": "Vacuna obligatoria por ley que protege a tu perro contra la rabia. Aplicación rápida, sin necesidad de ayuno previo.",
-    "imagen": "/img/vacuna-antirrabica.jpg"
+    "imagen": "/img/vacuna-antirrabica.jpg",
+    "stock": 15,
+    "stockCritico": 4,
+    "descuento": 0
   },
   {
     "id": 4,
@@ -45,7 +54,10 @@
     "precio": 18000,
     "observaciones": "Refuerzo anual",
     "descripcion": "Vacuna polivalente que protege a tu perro frente a seis enfermedades virales y bacterianas frecuentes.",
-    "imagen": "/img/vacuna-antirrabica.jpg"
+    "imagen": "/img/vacuna-antirrabica.jpg",
+    "stock": 12,
+    "stockCritico": 4,
+    "descuento": 15
   },
   {
     "id": 5,
@@ -57,7 +69,10 @@
     "precio": 15000,
     "observaciones": "Refuerzo anual",
     "descripcion": "Refuerzo anual que protege a tu gato frente a las enfermedades virales felinas más comunes.",
-    "imagen": "/img/vacuna-felina.jpg"
+    "imagen": "/img/vacuna-felina.jpg",
+    "stock": 3,
+    "stockCritico": 4,
+    "descuento": 0
   },
   {
     "id": 6,
@@ -69,7 +84,10 @@
     "precio": 60000,
     "observaciones": "Incluye anestesia",
     "descripcion": "Cirugía de esterilización con anestesia incluida, realizada por nuestro equipo veterinario en pabellón propio.",
-    "imagen": "/img/cirugia-canina.jpg"
+    "imagen": "/img/cirugia-canina.jpg",
+    "stock": 2,
+    "stockCritico": 2,
+    "descuento": 0
   },
   {
     "id": 7,
@@ -81,7 +99,10 @@
     "precio": 9500,
     "observaciones": "",
     "descripcion": "Tratamiento antiparasitario interno para perros de 10 a 25 kg, recomendado cada tres meses.",
-    "imagen": "/img/desparasitacion.jpg"
+    "imagen": "/img/desparasitacion.jpg",
+    "stock": 25,
+    "stockCritico": 5,
+    "descuento": 10
   },
   {
     "id": 8,
@@ -93,7 +114,10 @@
     "precio": 28000,
     "observaciones": "",
     "descripcion": "Imagen radiográfica de apoyo diagnóstico, entregada con informe del médico veterinario tratante.",
-    "imagen": "/img/radiografia.jpg"
+    "imagen": "/img/radiografia.jpg",
+    "stock": 6,
+    "stockCritico": 3,
+    "descuento": 10
   },
   {
     "id": 9,
@@ -105,7 +129,10 @@
     "precio": 5000,
     "observaciones": "",
     "descripcion": "Servicio rápido de higiene, recomendado cada 3 a 4 semanas para mascotas de vida principalmente interior.",
-    "imagen": "/img/corte-unas.jpg"
+    "imagen": "/img/corte-unas.jpg",
+    "stock": 30,
+    "stockCritico": 5,
+    "descuento": 0
   },
   {
     "id": 10,
@@ -117,6 +144,9 @@
     "precio": 15000,
     "observaciones": "Incluye registro",
     "descripcion": "Implante de microchip subcutáneo con registro incluido, para facilitar la identificación de tu mascota.",
-    "imagen": "/img/microchip.jpg"
+    "imagen": "/img/microchip.jpg",
+    "stock": 8,
+    "stockCritico": 3,
+    "descuento": 20
   }
 ]
