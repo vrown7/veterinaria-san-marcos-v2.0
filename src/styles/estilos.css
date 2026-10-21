@@ -295,3 +295,153 @@ h3,
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* ============================================================
+   Semana 11: ofertas, solicitud de cita y panel de administración
+   ============================================================ */
+
+.etiqueta-oferta {
+  background-color: var(--acento);
+  color: #fff;
+  font-weight: 600;
+}
+
+.tarjeta-servicio__oferta {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 1rem;
+}
+
+.precio--anterior {
+  color: var(--texto-suave);
+  font-weight: 400;
+}
+
+.barra-navegacion__solicitud .badge {
+  font-size: 0.75rem;
+}
+
+.barra-navegacion .dropdown-menu {
+  --bs-dropdown-link-active-bg: var(--verde-clinica);
+}
+
+.franja-categorias {
+  background-color: var(--verde-claro);
+}
+
+.tarjeta-categoria-mini {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  min-height: 84px;
+  transition: background-color 0.15s ease;
+}
+
+.tarjeta-categoria-mini:hover {
+  background-color: #fff;
+}
+
+.tarjeta-categoria-mini a {
+  color: var(--verde-oscuro);
+}
+
+.tabla-vsm {
+  --bs-table-bg: transparent;
+}
+
+.tabla-vsm thead th {
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom-width: 2px;
+}
+
+.cantidad {
+  min-width: 2.5rem;
+  opacity: 1 !important;
+}
+
+/* ---------- Panel de administración ---------- */
+
+.fondo-admin {
+  background-color: #f1efe8;
+}
+
+.menu-admin__contenedor {
+  background-color: #fff;
+  border-right: 1px solid var(--borde);
+}
+
+/* En escritorio el menú lateral llega hasta abajo (alto de pantalla menos la barra superior) */
+@media (min-width: 992px) {
+  .menu-admin__contenedor {
+    min-height: calc(100vh - 58px);
+  }
+}
+
+.menu-admin .nav-link {
+  color: var(--texto);
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  white-space: nowrap;
+}
+
+.menu-admin .nav-link:hover {
+  background-color: var(--verde-claro);
+}
+
+.menu-admin .nav-link.active {
+  background-color: var(--verde-clinica);
+  color: #fff;
+}
+
+/* En celular y tablet el menú queda arriba, en una fila que se desliza */
+@media (max-width: 991.98px) {
+  .menu-admin__contenedor {
+    border-right: 0;
+    border-bottom: 1px solid var(--borde);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .menu-admin {
+    overflow-x: auto;
+    gap: 0.25rem;
+  }
+}
+
+.tarjeta-resumen {
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  border-left: 5px solid var(--verde-clinica);
+}
+
+.tarjeta-resumen--alerta {
+  border-left-color: var(--acento);
+}
+
+.tarjeta-resumen--peligro {
+  border-left-color: #a3242f;
+}
+
+.tarjeta-resumen__titulo {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.tarjeta-resumen__valor {
+  font-family: var(--fuente-titulo);
+  color: var(--verde-oscuro);
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+  line-height: 1.1;
+}
+
+.barra-reporte {
+  height: 0.6rem;
+  --bs-progress-bar-bg: var(--verde-clinica);
+}
+
+.comprobante {
+  border-top: 5px solid var(--verde-clinica);
+}
