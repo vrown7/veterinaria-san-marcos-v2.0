@@ -79,35 +79,49 @@ Cada prueba (`*.test.js` / `*.test.jsx`) está al lado del archivo que prueba.
 
 ## Distribución del trabajo
 
-### Nicolás Ortega — Catálogo y solicitud de cita
+Según el historial de commits del repositorio (`main`).
+
+### Nicolás Ortega — Base del proyecto, catálogo y solicitud de cita (17 commits)
 
 | Archivo | Aporte |
 |---|---|
-| `TarjetaServicio`, `ListaServicios`, `BuscadorServicios` | Tarjeta del catálogo (con ofertas y botón para agregar), grilla responsiva y buscador. |
-| `Inicio`, `Servicios`, `Categorias`, `DetalleServicio`, `Ofertas` | Páginas del catálogo y de ofertas. |
-| `solicitudService`, `citaService`, `SolicitudContext`, `CitasContext` | Solicitud en curso y CRUD de citas. |
-| `MiSolicitud`, `ConfirmarSolicitud`, `ResultadoSolicitud`, `FormularioSolicitudCita` | Flujo de solicitud de cita: resumen, checkout y resultado. |
-| `precios.js`, `agenda.js` | Ofertas, total de la solicitud y reglas de la agenda. |
-| `Nosotros`, `Blog`, `BlogDetalle` | Páginas institucionales y blog. |
-| `AdminCategorias`, `FormularioCategoria`, `categoriaService`, `ServiciosContext` | CRUD de categorías. |
-| `AdminReportes`, `Footer`, `Hero`, `PlantillaPublica`, `estilos.css` | Reportes, estructura común y estilos. |
+| `package.json`, `vite.config.js`, `index.html`, `main.jsx`, `setupTests.js`, `App.jsx`, `.gitignore`, `.oxlintrc.json` | Proyecto React + Vite, Bootstrap, React Router, Vitest y rutas de toda la aplicación. |
+| `Boton`, `CampoTexto`, `Selector`, `EtiquetaEspecie`, `Precio`, `EtiquetaOferta` | Átomos. |
+| `CampoFormulario`, `CampoSelector`, `TarjetaServicio`, `BuscadorServicios`, `FilaSolicitud`, `SelectorFechaHora`, `TarjetaBlog`, `TarjetaIntegrante` | Moléculas. |
+| `Navbar`, `Footer`, `Hero`, `ListaServicios`, `DetalleSolicitud`, `FormularioSolicitudCita`, `FormularioContacto`, `PlantillaPublica` | Organismos y plantilla pública. |
+| `Inicio`, `Servicios`, `Categorias`, `DetalleServicio`, `Ofertas`, `Nosotros`, `Blog`, `BlogDetalle`, `Contacto`, `Login`, `Registro` | Páginas públicas. |
+| `MiSolicitud`, `ConfirmarSolicitud`, `ResultadoSolicitud` | Flujo de solicitud de cita: resumen, confirmación y resultado. |
+| `almacenamiento`, `servicioService`, `solicitudService`, `citaService` | CRUD de servicios (cupos, ofertas y críticos), solicitud en curso y citas, con persistencia en localStorage. |
+| `ServiciosContext`, `SolicitudContext`, `CitasContext`, `useFormulario` | Estado compartido y lógica común de formularios. |
+| `precios.js`, `agenda.js`, `filtros.js` y datos en `src/data` | Ofertas, recargo de urgencia, total, agenda, filtros y datos de partida. |
+| Pruebas de utils, services, átomos y moléculas; `estilos.css`; capturas | Pruebas unitarias, estilos de la marca y evidencias. |
 
-### Martín Vásquez — Cuentas, sesión y usuarios
-
-| Archivo | Aporte |
-|---|---|
-| `CampoTexto`, `Selector`, `CampoFormulario`, `CampoSelector` | Átomos y moléculas de formulario con mensaje de error. |
-| `FormularioLogin`, `FormularioRegistro`, `FormularioContacto` | Formularios con validación en React. |
-| `usuarioService`, `AuthContext`, `RutaProtegida` | Sesión simulada, roles y protección de rutas. |
-| `MisCitas`, `ListaMisCitas`, `Navbar` | Citas del dueño y menú con sesión. |
-| `AdminUsuarios`, `FormularioUsuario`, `AdminUsuarioDetalle`, `AdminPerfil` | CRUD de usuarios, historial y perfil. |
-| `validaciones.js`, documento de cobertura | Reglas de validación y análisis de las pruebas. |
-
-### Justin Galleguillos — Panel de administración
+### Martín Vásquez — Sesión, usuarios y documentación de pruebas (7 commits)
 
 | Archivo | Aporte |
 |---|---|
-| `PlantillaAdmin`, `MenuAdmin`, `TarjetaResumen` | Estructura del panel y dashboard. |
-| `AdminCitas`, `AdminCitaDetalle`, `TablaCitas`, `EtiquetaEstadoCita` | Solicitudes y ficha de atención. |
-| `AdminServicios`, `AdminServicioFormulario`, `AdminServicioDetalle`, `FormularioServicio` | CRUD de servicios y servicios críticos. |
+| `usuarioService`, `usuarios.json` | CRUD de usuarios e inicio de sesión simulado. |
+| `validaciones.js` | Reglas de validación de cita, servicio, usuario y categoría. |
+| `AuthContext`, `RutaProtegida`, `Salir` | Sesión por roles y protección de rutas. |
+| `FormularioLogin`, `FormularioRegistro`, `Navbar` | Login, registro y menú conectados a la sesión. |
+| `ListaMisCitas`, `MisCitas` | Citas del dueño de mascota y respuesta a cambios de horario. |
+| `FormularioUsuario`, `AdminUsuarios`, `AdminUsuarioFormulario`, `AdminUsuarioDetalle`, `AdminPerfil` | Gestión de usuarios, historial de solicitudes y perfil. |
+| `docs/documento-cobertura.md`, README | Documento de cobertura y documentación. |
+
+### Justin Galleguillos — Panel de administración (5 commits)
+
+| Archivo | Aporte |
+|---|---|
+| `PlantillaAdmin`, `MenuAdmin`, `TarjetaResumen`, `EtiquetaEstadoCita`, `TablaCitas` | Plantilla, menú y componentes del panel. |
+| `AdminInicio`, `AdminCitas`, `AdminCitaDetalle` | Dashboard, solicitudes y ficha de atención. |
+| `FormularioServicio`, `AdminServicios`, `AdminServicioDetalle`, `AdminServicioFormulario` | CRUD de servicios y servicios críticos. |
+| `categoriaService`, `categorias.json`, `FormularioCategoria`, `AdminCategorias`, `AdminReportes` | CRUD de categorías y reportes. |
+
+---
+
+## Pruebas unitarias y cobertura
+
+- 66 pruebas en 17 archivos, todas pasan (`npm run test:run`).
+- Cobertura con `npm run test:cov`: 65,34 % de líneas (services 91,66 %).
+- Informe completo: [docs/documento-cobertura.md](docs/documento-cobertura.md)
 
