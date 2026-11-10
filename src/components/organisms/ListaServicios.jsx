@@ -5,7 +5,8 @@ import TarjetaServicio from '../molecules/TarjetaServicio'
 import { useSolicitud } from '../../context/SolicitudContext'
 import { precioFinal } from '../../utils/precios'
 
-function ListaServicios({ servicios }) {
+function ListaServicios(props) {
+  const servicios = props.servicios
   const { agregar } = useSolicitud()
 
   if (servicios.length === 0) {

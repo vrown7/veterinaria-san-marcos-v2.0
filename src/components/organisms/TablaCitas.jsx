@@ -5,7 +5,9 @@ import EtiquetaEstadoCita from '../atoms/EtiquetaEstadoCita'
 import Precio from '../atoms/Precio'
 import { formatearFecha } from '../../utils/agenda'
 
-function TablaCitas({ citas, mostrarDueno = true }) {
+function TablaCitas(props) {
+  const citas = props.citas
+  const mostrarDueno = props.mostrarDueno ?? true
   if (citas.length === 0) {
     return <p className="text-muted mb-0">No hay solicitudes para mostrar.</p>
   }

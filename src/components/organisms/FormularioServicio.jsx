@@ -39,14 +39,15 @@ function aFormulario(servicio) {
   return Object.fromEntries(Object.keys(vacio).map((k) => [k, String(servicio[k] ?? vacio[k])]))
 }
 
-function FormularioServicio({ servicio, categorias, codigosUsados, onGuardar, textoBoton = 'Guardar servicio' }) {
-  const validar = (datos) => validarServicio(datos, codigosUsados)
-  const { valores, errores, manejarCambio, manejarSalida, validarTodo } = useFormulario(aFormulario(servicio), validar)
+function FormularioServicio(props) {
+  const textoBoton = props.textoBoton || 'Guardar servicio'
+  const validar = (datos) => validarServicio(datos, props.codigosUsados)
+  const { valores, errores, manejarCambio, manejarSalida, validarTodo } = useFormulario(aFormulario(props.servicio), validar)
 
   function manejarEnvio(evento) {
     evento.preventDefault()
     if (!validarTodo()) return
-    onGuardar({
+    props.onGuardar({
       ...valores,
       codigo: valores.codigo.trim().toUpperCase(),
       nombre: valores.nombre.trim(),
@@ -82,7 +83,7 @@ function FormularioServicio({ servicio, categorias, codigosUsados, onGuardar, te
             id="servicio-categoria"
             etiqueta="Categoría"
             textoInicial="Selecciona una categoría"
-            opciones={categorias.map((c) => c.nombre)}
+            opciones={props.categorias.map((c) => c.nombre)}
             {...campo('categoria')}
           />
         </Col>

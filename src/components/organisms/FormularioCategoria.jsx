@@ -5,8 +5,9 @@ import CampoFormulario from '../molecules/CampoFormulario'
 import { useFormulario } from '../../hooks/useFormulario'
 import { validarCategoria } from '../../utils/validaciones'
 
-function FormularioCategoria({ categoria, nombresUsados, onGuardar, onCancelar }) {
-  const validar = (datos) => validarCategoria(datos, nombresUsados)
+function FormularioCategoria(props) {
+  const categoria = props.categoria
+  const validar = (datos) => validarCategoria(datos, props.nombresUsados)
   const { valores, errores, manejarCambio, manejarSalida, validarTodo } = useFormulario(
     { nombre: categoria?.nombre ?? '', descripcion: categoria?.descripcion ?? '' },
     validar,
@@ -14,7 +15,7 @@ function FormularioCategoria({ categoria, nombresUsados, onGuardar, onCancelar }
 
   function manejarEnvio(evento) {
     evento.preventDefault()
-    if (validarTodo()) onGuardar({ nombre: valores.nombre.trim(), descripcion: valores.descripcion.trim() })
+    if (validarTodo()) props.onGuardar({ nombre: valores.nombre.trim(), descripcion: valores.descripcion.trim() })
   }
 
   return (
@@ -41,7 +42,7 @@ function FormularioCategoria({ categoria, nombresUsados, onGuardar, onCancelar }
       />
       <div className="d-flex gap-2">
         <Boton tipo="submit" texto={categoria ? 'Guardar cambios' : 'Crear categoría'} />
-        <Boton variante="outline-secondary" texto="Cancelar" onClick={onCancelar} />
+        <Boton variante="outline-secondary" texto="Cancelar" onClick={props.onCancelar} />
       </div>
     </Form>
   )

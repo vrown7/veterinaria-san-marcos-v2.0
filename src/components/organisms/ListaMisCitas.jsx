@@ -5,7 +5,8 @@ import EtiquetaEstadoCita from '../atoms/EtiquetaEstadoCita'
 import Precio from '../atoms/Precio'
 import { formatearFecha } from '../../utils/agenda'
 
-function ListaMisCitas({ citas, onAceptarPropuesta, onCancelar }) {
+function ListaMisCitas(props) {
+  const citas = props.citas
   if (citas.length === 0) {
     return <p className="text-muted">Todavía no tienes solicitudes de cita.</p>
   }
@@ -39,10 +40,10 @@ function ListaMisCitas({ citas, onAceptarPropuesta, onCancelar }) {
               )}
               <div className="d-flex gap-2 flex-wrap">
                 {cita.estado === 'Reprogramada' && (
-                  <Boton size="sm" texto="Aceptar nuevo horario" onClick={() => onAceptarPropuesta(cita.id)} />
+                  <Boton size="sm" texto="Aceptar nuevo horario" onClick={() => props.onAceptarPropuesta(cita.id)} />
                 )}
                 {(cita.estado === 'Pendiente' || cita.estado === 'Reprogramada') && (
-                  <Boton size="sm" variante="outline-danger" texto="Cancelar cita" onClick={() => onCancelar(cita.id)} />
+                  <Boton size="sm" variante="outline-danger" texto="Cancelar cita" onClick={() => props.onCancelar(cita.id)} />
                 )}
               </div>
             </Card.Body>
