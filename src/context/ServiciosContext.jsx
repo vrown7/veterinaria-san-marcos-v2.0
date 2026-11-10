@@ -7,7 +7,7 @@ import * as categoriaService from '../services/categoriaService'
 
 const ServiciosContext = createContext(null)
 
-export function ServiciosProvider({ children }) {
+export function ServiciosProvider(props) {
   // La función flecha hace que la lista se lea del service solo la primera vez.
   const [servicios, setServicios] = useState(() => servicioService.listarServicios())
   const [categorias, setCategorias] = useState(() => categoriaService.listarCategorias())
@@ -74,7 +74,7 @@ export function ServiciosProvider({ children }) {
         eliminarCategoria,
       }}
     >
-      {children}
+      {props.children}
     </ServiciosContext.Provider>
   )
 }

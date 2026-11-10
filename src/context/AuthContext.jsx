@@ -11,7 +11,7 @@ function leerSesion() {
   return guardada ? JSON.parse(guardada) : null
 }
 
-export function AuthProvider({ children }) {
+export function AuthProvider(props) {
   const [usuario, setUsuario] = useState(leerSesion)
 
   function guardarSesion(datos) {
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ usuario, esPersonal, iniciarSesion, cerrarSesion, registrar, refrescarSesion }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   )
 }

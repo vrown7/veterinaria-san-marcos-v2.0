@@ -7,7 +7,7 @@ import { calcularTotal } from '../utils/precios'
 
 const SolicitudContext = createContext(null)
 
-export function SolicitudProvider({ children }) {
+export function SolicitudProvider(props) {
   const [items, setItems] = useState(() => solicitudService.obtenerItems())
 
   const agregar = (servicio, precioUnitario, fueraDeHorario) =>
@@ -21,7 +21,7 @@ export function SolicitudProvider({ children }) {
 
   return (
     <SolicitudContext.Provider value={{ items, total, cantidadTotal, agregar, cambiarCantidad, quitar, limpiar }}>
-      {children}
+      {props.children}
     </SolicitudContext.Provider>
   )
 }
