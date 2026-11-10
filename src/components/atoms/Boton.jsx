@@ -2,10 +2,19 @@
 // y ejecuta lo que le pasen por onClick.
 import { Button } from 'react-bootstrap'
 
-function Boton({ texto, variante = 'vsm', tipo = 'button', onClick, ...resto }) {
+function Boton(props) {
+  const variante = props.variante || 'vsm'
+  const tipo = props.tipo || 'button'
   return (
-    <Button variant={variante} type={tipo} onClick={onClick} {...resto}>
-      {texto}
+    <Button
+      variant={variante}
+      type={tipo}
+      size={props.size}
+      disabled={props.disabled}
+      className={props.className}
+      onClick={props.onClick}
+    >
+      {props.texto}
     </Button>
   )
 }

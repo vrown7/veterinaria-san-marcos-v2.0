@@ -1,10 +1,10 @@
 // Átomo: etiqueta con la especie a la que está dirigido un servicio.
 import { Badge } from 'react-bootstrap'
 
-function EtiquetaEspecie({ especie }) {
+function EtiquetaEspecie(props) {
   return (
     <Badge pill bg="" className="etiqueta-especie">
-      {especie}
+      {props.especie}
     </Badge>
   )
 }
