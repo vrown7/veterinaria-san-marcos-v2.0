@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import MenuAdmin from '../organisms/MenuAdmin'
 import { useAuth } from '../../context/AuthContext'
 
-function PlantillaAdmin({ titulo, acciones, children }) {
+function PlantillaAdmin(props) {
   const { usuario } = useAuth()
   return (
     <div className="d-flex flex-column min-vh-100 fondo-admin">
@@ -30,10 +30,10 @@ function PlantillaAdmin({ titulo, acciones, children }) {
           </Col>
           <Col xs={12} lg={9} xl={10} as="main" className="py-4 px-lg-4">
             <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
-              <h1 className="seccion__titulo mb-0">{titulo}</h1>
-              {acciones}
+              <h1 className="seccion__titulo mb-0">{props.titulo}</h1>
+              {props.acciones}
             </div>
-            {children}
+            {props.children}
           </Col>
         </Row>
       </Container>
