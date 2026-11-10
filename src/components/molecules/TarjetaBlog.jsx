@@ -2,7 +2,8 @@
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-function TarjetaBlog({ blog }) {
+function TarjetaBlog(props) {
+  const blog = props.blog
   return (
     <Card className="h-100 tarjeta-servicio">
       <Card.Img variant="top" src={blog.imagen} alt={blog.alt} className="tarjeta-servicio__imagen" />
