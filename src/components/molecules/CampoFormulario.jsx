@@ -3,13 +3,19 @@
 import { Form } from 'react-bootstrap'
 import CampoTexto from '../atoms/CampoTexto'
 
-function CampoFormulario({ id, etiqueta, error, ayuda, ...resto }) {
+function CampoFormulario(props) {
+  // Se copian los props y se quitan los propios de la molécula; el resto va al input.
+  const atributos = { ...props }
+  delete atributos.id
+  delete atributos.etiqueta
+  delete atributos.error
+  delete atributos.ayuda
   return (
-    <Form.Group className="mb-3" controlId={id}>
-      <Form.Label>{etiqueta}</Form.Label>
-      <CampoTexto isInvalid={Boolean(error)} {...resto} />
-      {ayuda && !error && <Form.Text muted>{ayuda}</Form.Text>}
-      <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+    <Form.Group className="mb-3" controlId={props.id}>
+      <Form.Label>{props.etiqueta}</Form.Label>
+      <CampoTexto isInvalid={Boolean(props.error)} {...atributos} />
+      {props.ayuda && !props.error && <Form.Text muted>{props.ayuda}</Form.Text>}
+      <Form.Control.Feedback type="invalid">{props.error}</Form.Control.Feedback>
     </Form.Group>
   )
 }

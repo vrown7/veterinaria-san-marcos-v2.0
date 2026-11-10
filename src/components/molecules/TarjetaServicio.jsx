@@ -9,14 +9,15 @@ import EtiquetaOferta from '../atoms/EtiquetaOferta'
 import Precio from '../atoms/Precio'
 import { precioFinal } from '../../utils/precios'
 
-function TarjetaServicio({ servicio, onAgregar }) {
+function TarjetaServicio(props) {
+  const servicio = props.servicio
   // Estado propio de la tarjeta: muestra "Agregado" por un momento después del clic.
   const [agregado, setAgregado] = useState(false)
   const enOferta = (servicio.descuento ?? 0) > 0
   const sinCupos = servicio.stock === 0
 
   function manejarAgregar() {
-    onAgregar(servicio)
+    props.onAgregar(servicio)
     setAgregado(true)
     setTimeout(() => setAgregado(false), 1500)
   }
@@ -48,7 +49,7 @@ function TarjetaServicio({ servicio, onAgregar }) {
             <Link to={`/servicios/${servicio.id}`} className="btn btn-outline-vsm btn-sm">
               Ver detalle
             </Link>
-            {onAgregar && (
+            {props.onAgregar && (
               <Boton
                 size="sm"
                 texto={sinCupos ? 'Sin cupos' : agregado ? '✓ Agregado' : 'Agregar a mi solicitud'}

@@ -1,5 +1,6 @@
 // Molécula: foto, nombre y cargo de un integrante del equipo clínico.
-function TarjetaIntegrante({ integrante }) {
+function TarjetaIntegrante(props) {
+  const integrante = props.integrante
   return (
     <figure className="integrante text-center">
       <img className="integrante__foto" src={integrante.foto} alt={`Retrato de ${integrante.nombre}`} />

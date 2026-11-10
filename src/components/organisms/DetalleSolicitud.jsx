@@ -5,7 +5,9 @@ import FilaSolicitud from '../molecules/FilaSolicitud'
 import Precio from '../atoms/Precio'
 import { calcularTotal } from '../../utils/precios'
 
-function DetalleSolicitud({ items, editable = false, onCambiarCantidad, onQuitar }) {
+function DetalleSolicitud(props) {
+  const editable = props.editable || false
+  const items = props.items
   return (
     <Table responsive className="tabla-vsm align-middle mb-0">
       <thead>
@@ -21,8 +23,8 @@ function DetalleSolicitud({ items, editable = false, onCambiarCantidad, onQuitar
           <FilaSolicitud
             key={item.clave}
             item={item}
-            onCambiarCantidad={editable ? onCambiarCantidad : undefined}
-            onQuitar={onQuitar}
+            onCambiarCantidad={editable ? props.onCambiarCantidad : undefined}
+            onQuitar={props.onQuitar}
           />
         ))}
       </tbody>

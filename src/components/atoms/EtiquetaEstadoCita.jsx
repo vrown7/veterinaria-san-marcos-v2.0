@@ -8,7 +8,8 @@ const COLORES = {
   Cancelada: 'secondary',
 }
 
-function EtiquetaEstadoCita({ estado }) {
+function EtiquetaEstadoCita(props) {
+  const estado = props.estado
   return (
     <Badge bg={COLORES[estado] ?? 'secondary'} text={estado === 'Pendiente' || estado === 'Reprogramada' ? 'dark' : undefined}>
       {estado}

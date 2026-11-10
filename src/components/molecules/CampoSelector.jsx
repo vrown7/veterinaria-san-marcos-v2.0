@@ -2,12 +2,17 @@
 import { Form } from 'react-bootstrap'
 import Selector from '../atoms/Selector'
 
-function CampoSelector({ id, etiqueta, error, ...resto }) {
+function CampoSelector(props) {
+  // Se copian los props y se quitan los propios de la molécula; el resto va al selector.
+  const atributos = { ...props }
+  delete atributos.id
+  delete atributos.etiqueta
+  delete atributos.error
   return (
-    <Form.Group className="mb-3" controlId={id}>
-      <Form.Label>{etiqueta}</Form.Label>
-      <Selector isInvalid={Boolean(error)} {...resto} />
-      <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+    <Form.Group className="mb-3" controlId={props.id}>
+      <Form.Label>{props.etiqueta}</Form.Label>
+      <Selector isInvalid={Boolean(props.error)} {...atributos} />
+      <Form.Control.Feedback type="invalid">{props.error}</Form.Control.Feedback>
     </Form.Group>
   )
 }

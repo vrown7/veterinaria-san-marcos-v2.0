@@ -4,7 +4,9 @@ import CampoFormulario from './CampoFormulario'
 import CampoSelector from './CampoSelector'
 import { HORARIOS, fechaMinimaCita } from '../../utils/agenda'
 
-function SelectorFechaHora({ fecha, hora, errores = {}, onChange, onBlur, prefijo = 'cita' }) {
+function SelectorFechaHora(props) {
+  const errores = props.errores || {}
+  const prefijo = props.prefijo || 'cita'
   return (
     <Row>
       <Col xs={12} md={6}>
@@ -14,9 +16,9 @@ function SelectorFechaHora({ fecha, hora, errores = {}, onChange, onBlur, prefij
           etiqueta="Fecha"
           type="date"
           min={fechaMinimaCita()}
-          value={fecha}
-          onChange={onChange}
-          onBlur={onBlur}
+          value={props.fecha}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
           error={errores.fecha}
           ayuda="Lunes a sábado."
         />
@@ -28,9 +30,9 @@ function SelectorFechaHora({ fecha, hora, errores = {}, onChange, onBlur, prefij
           etiqueta="Hora"
           textoInicial="Selecciona un horario"
           opciones={HORARIOS}
-          value={hora}
-          onChange={onChange}
-          onBlur={onBlur}
+          value={props.hora}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
           error={errores.hora}
         />
       </Col>

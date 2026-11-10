@@ -2,7 +2,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
-function RutaProtegida({ roles, children }) {
+function RutaProtegida(props) {
   const { usuario } = useAuth()
   const ubicacion = useLocation()
 
@@ -10,10 +10,10 @@ function RutaProtegida({ roles, children }) {
     // "state.desde" permite volver a esta página después de iniciar sesión.
     return <Navigate to="/login" replace state={{ desde: ubicacion.pathname }} />
   }
-  if (roles && !roles.includes(usuario.tipo)) {
+  if (props.roles && !props.roles.includes(usuario.tipo)) {
     return <Navigate to="/" replace />
   }
-  return children
+  return props.children
 }
 
 export default RutaProtegida

@@ -8,7 +8,8 @@ import Precio from '../../components/atoms/Precio'
 import { useServicios } from '../../context/ServiciosContext'
 import { useAuth } from '../../context/AuthContext'
 
-function AdminServicios({ soloCriticos = false }) {
+function AdminServicios(props) {
+  const soloCriticos = props.soloCriticos || false
   const { servicios, eliminar } = useServicios()
   const { usuario } = useAuth()
   const esAdmin = usuario.tipo === 'Administrador'

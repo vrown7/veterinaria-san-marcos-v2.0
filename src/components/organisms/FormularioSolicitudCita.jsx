@@ -9,7 +9,8 @@ import { useFormulario } from '../../hooks/useFormulario'
 import { validarSolicitudCita } from '../../utils/validaciones'
 import { ESPECIES } from '../../utils/agenda'
 
-function FormularioSolicitudCita({ usuario, onConfirmar, deshabilitado = false }) {
+function FormularioSolicitudCita(props) {
+  const usuario = props.usuario
   const { valores, errores, manejarCambio, manejarSalida, validarTodo } = useFormulario(
     {
       nombre: usuario?.nombre ?? '',
@@ -27,7 +28,7 @@ function FormularioSolicitudCita({ usuario, onConfirmar, deshabilitado = false }
 
   function manejarEnvio(evento) {
     evento.preventDefault()
-    if (validarTodo()) onConfirmar(valores)
+    if (validarTodo()) props.onConfirmar(valores)
   }
 
   const campo = (nombre) => ({
@@ -84,7 +85,7 @@ function FormularioSolicitudCita({ usuario, onConfirmar, deshabilitado = false }
         {...campo('comentario')}
       />
       <div className="d-grid">
-        <Boton tipo="submit" texto="Confirmar solicitud de cita" size="lg" disabled={deshabilitado} />
+        <Boton tipo="submit" texto="Confirmar solicitud de cita" size="lg" disabled={props.deshabilitado || false} />
       </div>
     </Form>
   )

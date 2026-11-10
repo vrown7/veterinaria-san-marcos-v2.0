@@ -9,9 +9,10 @@ import regiones from '../../data/regiones.json'
 
 const TIPOS = ['Administrador', 'Recepcionista', 'Dueño de mascota']
 
-function FormularioUsuario({ usuario, correosUsados, onGuardar }) {
+function FormularioUsuario(props) {
+  const usuario = props.usuario
   const esNuevo = !usuario
-  const validar = (datos) => validarUsuario(datos, { correosUsados, esNuevo })
+  const validar = (datos) => validarUsuario(datos, { correosUsados: props.correosUsados, esNuevo })
   const { valores, setValores, errores, manejarCambio, manejarSalida, validarTodo } = useFormulario(
     {
       run: usuario?.run ?? '',
@@ -29,7 +30,7 @@ function FormularioUsuario({ usuario, correosUsados, onGuardar }) {
 
   function manejarEnvio(evento) {
     evento.preventDefault()
-    if (validarTodo()) onGuardar({ ...valores, run: valores.run.trim().toUpperCase() })
+    if (validarTodo()) props.onGuardar({ ...valores, run: valores.run.trim().toUpperCase() })
   }
 
   const campo = (nombre) => ({

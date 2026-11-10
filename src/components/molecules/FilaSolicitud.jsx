@@ -3,8 +3,9 @@
 import { Button, ButtonGroup } from 'react-bootstrap'
 import Precio from '../atoms/Precio'
 
-function FilaSolicitud({ item, onCambiarCantidad, onQuitar }) {
-  const editable = Boolean(onCambiarCantidad)
+function FilaSolicitud(props) {
+  const item = props.item
+  const editable = Boolean(props.onCambiarCantidad)
   return (
     <tr>
       <td>
@@ -18,7 +19,7 @@ function FilaSolicitud({ item, onCambiarCantidad, onQuitar }) {
           <ButtonGroup size="sm" aria-label={`Cantidad de ${item.nombre}`}>
             <Button
               variant="outline-vsm"
-              onClick={() => onCambiarCantidad(item.clave, item.cantidad - 1)}
+              onClick={() => props.onCambiarCantidad(item.clave, item.cantidad - 1)}
               disabled={item.cantidad <= 1}
               aria-label="Restar uno"
             >
@@ -29,7 +30,7 @@ function FilaSolicitud({ item, onCambiarCantidad, onQuitar }) {
             </Button>
             <Button
               variant="outline-vsm"
-              onClick={() => onCambiarCantidad(item.clave, item.cantidad + 1)}
+              onClick={() => props.onCambiarCantidad(item.clave, item.cantidad + 1)}
               disabled={item.cantidad >= 5}
               aria-label="Sumar uno"
             >
@@ -45,7 +46,7 @@ function FilaSolicitud({ item, onCambiarCantidad, onQuitar }) {
       </td>
       {editable && (
         <td className="text-end">
-          <Button variant="link" className="text-danger p-0" onClick={() => onQuitar(item.clave)}>
+          <Button variant="link" className="text-danger p-0" onClick={() => props.onQuitar(item.clave)}>
             Quitar
           </Button>
         </td>

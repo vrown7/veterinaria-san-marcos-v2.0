@@ -3,7 +3,7 @@
 import { Form, InputGroup } from 'react-bootstrap'
 import CampoTexto from '../atoms/CampoTexto'
 
-function BuscadorServicios({ valor, onChange }) {
+function BuscadorServicios(props) {
   return (
     <Form onSubmit={(e) => e.preventDefault()} role="search">
       <InputGroup>
@@ -14,8 +14,8 @@ function BuscadorServicios({ valor, onChange }) {
           type="search"
           placeholder="Buscar por nombre, categoría o especie"
           aria-label="Buscar servicios"
-          value={valor}
-          onChange={(e) => onChange(e.target.value)}
+          value={props.valor}
+          onChange={(e) => props.onChange(e.target.value)}
         />
       </InputGroup>
     </Form>

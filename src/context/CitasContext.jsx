@@ -5,7 +5,7 @@ import * as citaService from '../services/citaService'
 
 const CitasContext = createContext(null)
 
-export function CitasProvider({ children }) {
+export function CitasProvider(props) {
   const [citas, setCitas] = useState(() => citaService.listarCitas())
   const recargar = () => setCitas(citaService.listarCitas())
 
@@ -32,7 +32,7 @@ export function CitasProvider({ children }) {
 
   return (
     <CitasContext.Provider value={{ citas, crear, cambiarEstado, proponerHorario, aceptarPropuesta, recargar }}>
-      {children}
+      {props.children}
     </CitasContext.Provider>
   )
 }

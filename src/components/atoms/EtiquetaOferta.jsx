@@ -1,10 +1,10 @@
 // Átomo: etiqueta con el porcentaje de descuento de una oferta.
 import { Badge } from 'react-bootstrap'
 
-function EtiquetaOferta({ descuento }) {
+function EtiquetaOferta(props) {
   return (
     <Badge bg="" className="etiqueta-oferta">
-      -{descuento}%
+      -{props.descuento}%
     </Badge>
   )
 }
